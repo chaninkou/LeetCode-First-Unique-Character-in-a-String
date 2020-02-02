@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class FindFirstUniqueLetterFunction {
 	// Faster way in leetcode, similar to my way, but without using hashmap
+	// O(n + n) since we go over the whole string once and then worst case we find the unique item at the last element when we go through it the second time
     public int firstUniqChar(String s) {
     	// Since its only lowercase, 26 spaces will be enough
         int freq [] = new int[26];
@@ -24,7 +25,7 @@ public class FindFirstUniqueLetterFunction {
         return -1;
     }
     
-	
+	// A way to use hashmap and store the index as value, then go through the whole keyset and compare which index is the minimum
     public int firstUniqChar1(String s) {
     	// Store the variable as key 
         HashMap<Character, Integer> map = new HashMap<>();
@@ -74,5 +75,43 @@ public class FindFirstUniqueLetterFunction {
         }
         
         return -1;
+    }
+    
+    
+    // Brute force way, O(N^2)
+    public int firstUniqChar3(String s){
+    	
+    	for(int i = 0; i < s.length(); i++){
+    		// Set it to false every time we use a new element
+    		boolean uniqueCheck = false;
+    		
+    		for(int j = 0; j < s.length(); j++){
+    			// If they are the same, mark it true and stop the inner loop
+    			if(s.charAt(i) == s.charAt(j) && (i != j)){
+    				uniqueCheck = true;
+    				break;
+    			}
+    		}
+    		
+    		// If this is false, that means there was no duplicates
+    		if(!uniqueCheck){
+    			return i;
+    		}
+    	}
+    	
+		return -1;
+    }
+    
+    // Another way using builit in function
+    // This is short, but doesn't make it faster
+    public int firstUniqChar4(String s){
+    	for(int i = 0; i < s.length(); i++){
+    		// If the first index and equal to last index of this element, which mean there is only one
+    		if(s.indexOf(s.charAt(i)) == s.lastIndexOf(s.charAt(i))){
+    			return i;
+    		}
+    	}
+    	
+		return -1;
     }
 }
