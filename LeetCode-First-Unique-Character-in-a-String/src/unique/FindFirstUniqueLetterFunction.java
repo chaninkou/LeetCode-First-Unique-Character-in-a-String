@@ -38,7 +38,7 @@ public class FindFirstUniqueLetterFunction {
             	// Saving the index as the value
                 map.put(current, i);
             } else {
-                // Using -1 as marking this is not the one
+                // Using -1 as marking this is not the one (It could be anything like -2,-3,-4 ...)
                 map.put(current, -1);
             }
         }
@@ -47,6 +47,7 @@ public class FindFirstUniqueLetterFunction {
         int min = Integer.MAX_VALUE;
         
         // For each key, check which value is not -1 and get the min of it
+        // This is faster than going through the whole string again and check which one is 1
         for(char c : map.keySet()){
             if(map.get(c) > -1 && map.get(c) < min){
             	// Min will the be minimum index
@@ -102,7 +103,7 @@ public class FindFirstUniqueLetterFunction {
 		return -1;
     }
     
-    // Another way using builit in function
+    // Another way using built in function
     // This is short, but doesn't make it faster
     public int firstUniqChar4(String s){
     	for(int i = 0; i < s.length(); i++){
